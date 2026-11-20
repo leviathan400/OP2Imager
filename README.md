@@ -36,8 +36,9 @@ does for maps, with the same options, and adds mission DLLs. Saved games (`.op2`
 OP2MapImager draws only their terrain.
 
 It doesn't contain any of the game's files: the tilesets, unit art and a mission's map come from your Outpost 2
-install (GOG 1.2 with OPU 1.4.1). A mission's setup (`InitProc`) runs in [op2-rs](https://gitlab.com/bufke/op2-rs)'s
-x86 sandbox, not natively, through op2dll's library ([OP2MissionReader](https://github.com/leviathan400/OP2MissionReader)).
+install (GOG 1.2 with OPU 1.4.1). A mission's setup (`InitProc`) runs in op2-rs's x86 emulator, never natively, through
+[op2-missionhost](https://gitlab.com/bufke/op2-rs/-/tree/main/tools/crates/op2-missionhost), the core that makes this
+possible, called from op2dll's library ([OP2MissionReader](https://github.com/leviathan400/OP2MissionReader)).
 
 ## Using it
 
@@ -117,8 +118,12 @@ The programs are `target/release/OP2Imager.exe` and `OP2Timelapse.exe` (no `.exe
   The idea and the option names come from it, so its commands work here.
 - [OP2MissionReader](https://github.com/leviathan400/OP2MissionReader) (op2dll): its library runs a mission's setup
   in the sandbox and draws the map; OP2Imager is built on it.
-- [op2-rs](https://gitlab.com/bufke/op2-rs): the x86 sandbox and the game's mission API a setup runs against, and the
-  sprite and tileset drawing.
+- [op2-missionhost](https://gitlab.com/bufke/op2-rs/-/tree/main/tools/crates/op2-missionhost) (op2-rs):
+  the core part that makes OP2Imager possible. It runs an original mission DLL in op2-rs's x86 emulator (op2-x86)
+  against the game's mission API, so a mission's setup places its units without the game running and without
+  running the DLL natively.
+- [op2-rs](https://gitlab.com/bufke/op2-rs): the rest of the base: the x86 emulator, the simulation a setup builds,
+  and the sprite and tileset drawing.
 - [OP2Formats](https://github.com/leviathan400/OP2Formats) (`op2-formats` on crates.io): reading maps, tilesets,
   `.vol` archives, art and saved games.
 - [OP2TestHarness](https://github.com/leviathan400/OP2TestHarness): writes the game states and whole-map images
