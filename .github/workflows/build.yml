@@ -1,0 +1,80 @@
+name: Build
+
+# Builds OP2Imager and OP2Timelapse for Windows and Linux on every push and pull request, runs clippy and the tests,
+# and keeps each build as a downloadable artifact (Actions > the run > Artifacts). A v* tag also attaches the builds,
+# zipped, to that tag's GitHub release, creating the release from the tag if it doesn't exist yet.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: windows-x64, os: windows-latest, ext: .exe }
+          # The oldest supported Ubuntu, so the programs run on older glibc.
+          - { name: linux-x64, os: ubuntu-22.04, ext: "" }
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      # rust-toolchain.toml picks the toolchain (the one op2-rs pins); rustup installs it on first use.
+      - name: Toolchain
+        run: rustup show active-toolchain || rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - name: Clippy
+        run: cargo clippy --all-targets --locked -- -D warnings
+      - name: Test
+        run: cargo test --release --locked
+      - name: Build
+        run: cargo build --release --locked
+      - name: Package
+        run: |
+          pkg="OP2Imager-${{ matrix.name }}"
+          mkdir "$pkg"
+          cp "target/release/OP2Imager${{ matrix.ext }}" "target/release/OP2Timelapse${{ matrix.ext }}" \
+            README.md CHANGELOG.md LICENSE "$pkg/"
+          "$pkg/OP2Imager${{ matrix.ext }}" --help | head -1
+      - uses: actions/upload-artifact@v7
+        with:
+          name: OP2Imager-${{ matrix.name }}
+          path: OP2Imager-${{ matrix.name }}
+
+  release:
+    name: release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v7
+        with:
+          path: dist
+      - name: Zip the builds
+        run: |
+          cd dist
+          for d in OP2Imager-*; do
+            out="${d/OP2Imager-/OP2Imager-${TAG#v}-}"
+            mv "$d" "$out"
+            case "$out" in
+              *windows*) zip -qr "$out.zip" "$out" ;;
+              *) chmod +x "$out/OP2Imager" "$out/OP2Timelapse"; tar czf "$out.tar.gz" "$out" ;;
+            esac
+          done
+          ls -l
+      - name: Attach to the release
+        run: |
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --verify-tag --title "OP2Imager ${TAG#v}" \
+            --notes "See CHANGELOG.md for what's new."
+          gh release upload "$TAG" dist/*.zip dist/*.tar.gz --clobber
