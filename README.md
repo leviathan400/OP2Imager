@@ -1,7 +1,7 @@
 # OP2Imager
 
-Makes images of Outpost 2 maps (`.map`) and mission DLLs (`.dll`), one file or whole folders at a time, as PNG, JPEG
-or BMP.
+Makes images of Outpost 2 maps (`.map`), mission DLLs (`.dll`) and saved games (`.op2`), one file or whole folders at
+a time, as PNG, JPEG or BMP.
 
 - A **map** is drawn as its file has it: the terrain, cliffs, lava and so on.
 - A **mission DLL** is drawn as the game starts it: its map with every unit, structure, wall, tube and mining beacon
@@ -31,8 +31,9 @@ or BMP.
   as the harness's `map_<tick>.png`. `--rgba` writes a PNG with an (always opaque) alpha channel through the `image`
   crate instead.
 
-It does what [OP2MapImager](https://github.com/OutpostUniverse/OP2MapImager) does for maps, with the same options, and
-adds mission DLLs. Saved games (`.op2`) are drawn with their units, where OP2MapImager draws only their terrain.
+It builds on the work of [OP2MapImager](https://github.com/OutpostUniverse/OP2MapImager): it does what OP2MapImager
+does for maps, with the same options, and adds mission DLLs. Saved games (`.op2`) are drawn with their units, where
+OP2MapImager draws only their terrain.
 
 It doesn't contain any of the game's files: the tilesets, unit art and a mission's map come from your Outpost 2
 install (GOG 1.2 with OPU 1.4.1). A mission's setup (`InitProc`) runs in [op2-rs](https://gitlab.com/bufke/op2-rs)'s
@@ -109,6 +110,19 @@ cargo build --release
 ```
 
 The programs are `target/release/OP2Imager.exe` and `OP2Timelapse.exe` (no `.exe` elsewhere).
+
+## References
+
+- [OP2MapImager](https://github.com/OutpostUniverse/OP2MapImager) (OutpostUniverse): OP2Imager builds on its work.
+  The idea and the option names come from it, so its commands work here.
+- [OP2MissionReader](https://github.com/leviathan400/OP2MissionReader) (op2dll): its library runs a mission's setup
+  in the sandbox and draws the map; OP2Imager is built on it.
+- [op2-rs](https://gitlab.com/bufke/op2-rs): the x86 sandbox and the game's mission API a setup runs against, and the
+  sprite and tileset drawing.
+- [OP2Formats](https://github.com/leviathan400/OP2Formats) (`op2-formats` on crates.io): reading maps, tilesets,
+  `.vol` archives, art and saved games.
+- [OP2TestHarness](https://github.com/leviathan400/OP2TestHarness): writes the game states and whole-map images
+  OP2Imager and OP2Timelapse take as input.
 
 ## License
 
