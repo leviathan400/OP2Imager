@@ -1,0 +1,38 @@
+[package]
+name = "op2imager"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0-or-later"
+description = "Renders Outpost 2 maps and mission DLLs to images: a mission as it starts, every player's base on it"
+publish = false
+
+[[bin]]
+name = "OP2Imager"
+path = "src/main.rs"
+
+# An animated GIF of a game's whole-map images (OP2TestHarness --map-every).
+[[bin]]
+name = "OP2Timelapse"
+path = "src/timelapse.rs"
+
+[dependencies]
+# op2dll's library (OP2MissionReader on GitHub, at a pinned commit): a mission's setup in op2-rs's x86
+# sandbox and the map drawn with what it placed. Without its `app` feature it brings no windowing libraries.
+op2dll = { git = "https://github.com/leviathan400/OP2MissionReader", rev = "e706d81aaafdc1177a2d6abb03882a1e364ef326", default-features = false }
+# Maps, tilesets, art, the game folder and saved games (`saved_game`); the same version op2dll uses.
+op2-formats = "0.6"
+# For the game folder op2-rs saved; the same commit op2dll pins.
+op2-settings = { git = "https://gitlab.com/bufke/op2-rs", rev = "982336cf154f572bb38c1167eb19d939b29f737f" }
+image = { version = "0.25", default-features = false }
+anyhow = "1"
+serde_json = "1"
+
+# op2-rs's crates are slow unoptimized (the sandbox interprets x86); optimize dependencies even in dev builds.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+lto = "thin"
