@@ -1,5 +1,9 @@
 # OP2Imager
 
+![Every Eden unit and building, drawn by OP2Imager from t14.dll](docs/images/t14-banner.jpg)
+
+<sub>`OP2Imager -s 16 t14.dll`: "Tutorial E - Eden Unit Reference" as the mission sets it up (part of the map).</sub>
+
 Makes images of Outpost 2 maps (`.map`), mission DLLs (`.dll`) and saved games (`.op2`), one file or whole folders at
 a time, as PNG, JPEG or BMP.
 
