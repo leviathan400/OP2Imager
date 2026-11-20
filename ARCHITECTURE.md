@@ -169,7 +169,7 @@ The only files written are the images, JSON files and GIFs under the paths given
 
 ## 10. Project identification
 
-- **Name:** OP2Imager (crate `op2imager`, programs `OP2Imager` and `OP2Timelapse`), version 0.1.0.
+- **Name:** OP2Imager (crate `op2imager`, programs `OP2Imager` and `OP2Timelapse`), version 0.4.0.
 - **Repository:** https://github.com/leviathan400/OP2Imager
 - **Contact:** Leviathan (leviathan400).
 - **Last updated:** 2026-11-20.

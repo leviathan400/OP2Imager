@@ -462,7 +462,7 @@ dependencies = [
 
 [[package]]
 name = "op2imager"
-version = "0.1.0"
+version = "0.4.0"
 dependencies = [
  "anyhow",
  "image",
@@ -470,6 +470,7 @@ dependencies = [
  "op2-settings",
  "op2dll",
  "serde_json",
+ "winresource",
 ]
 
 [[package]]

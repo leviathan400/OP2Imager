@@ -1,6 +1,6 @@
 [package]
 name = "op2imager"
-version = "0.1.0"
+version = "0.4.0"
 edition = "2024"
 license = "GPL-3.0-or-later"
 description = "Renders Outpost 2 maps and mission DLLs to images: a mission as it starts, every player's base on it"
@@ -26,6 +26,10 @@ op2-settings = { git = "https://gitlab.com/bufke/op2-rs", rev = "982336cf154f572
 image = { version = "0.25", default-features = false }
 anyhow = "1"
 serde_json = "1"
+
+# The version details in the Windows exes (build.rs).
+[target.'cfg(windows)'.build-dependencies]
+winresource = "0.1"
 
 # op2-rs's crates are slow unoptimized (the sandbox interprets x86); optimize dependencies even in dev builds.
 [profile.dev.package."*"]
