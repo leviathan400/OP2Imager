@@ -103,6 +103,9 @@ after the first stores only the pixels that changed, so 41 frames of 512x1038 ma
 
 ## Building
 
+Ready-made builds for Windows x64 and Linux x64 come from CI: each run's Artifacts on the Actions tab, and a tagged
+release's downloads.
+
 Needs Rust (the toolchain in `rust-toolchain.toml`). Cargo fetches op2dll's library from OP2MissionReader on GitHub
 at a pinned commit, and op2-formats from crates.io. Saved games come from op2-formats 0.6's `saved_game` (crates.io).
 

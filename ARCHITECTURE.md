@@ -136,8 +136,10 @@ They write only the images (and `--stats` JSON files) under the destination, and
 
 Desktop command-line programs with no services. Built locally with `cargo build --release`, which fetches op2dll
 (OP2MissionReader) and op2-rs's crates by git at pinned commits; the outputs are `target/release/OP2Imager.exe` and
-`OP2Timelapse.exe`. The source is on GitHub (leviathan400/OP2Imager); there is no CI.
-Built and tried on Windows only; nothing used is Windows-only.
+`OP2Timelapse.exe`. The source is on GitHub (leviathan400/OP2Imager). CI (`.github/workflows/build.yml`)
+builds both programs for Windows x64 and Linux x64 (Ubuntu 22.04, for older glibc) on every push, with clippy and the
+tests, and keeps the builds as run artifacts; a `v*` tag attaches them, zipped, to that tag's release. Tried by hand on
+Windows only; nothing used is Windows-only.
 
 ## 7. Security considerations
 
