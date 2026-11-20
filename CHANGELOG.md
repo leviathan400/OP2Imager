@@ -7,7 +7,8 @@ Notable changes to OP2Imager. The format follows [Keep a Changelog](https://keep
 ## [0.4.0] - 2026-11-20
 
 ### Added
-- Version details in the Windows exes (Properties > Details): OP2Imager, Outpost Universe, version 0.4.0.
+- Icons and version details in the Windows exes: OP2Imager the starship (`assets/Tech_Starship.ico`), OP2Timelapse
+  the space icon (`assets/Tech_Space.ico`); Properties > Details shows OP2Imager, Outpost Universe, version 0.4.0.
 - Saved games (`.op2`): drawn as the game was when it was saved, the map with its tiles then and every unit, structure
   and beacon (a weapon's fire left out), from op2-formats 0.6's `saved_game`.
   A name alone is looked up in `OPU\saves` and then the game folder; a folder takes its `.op2` files and skips the
