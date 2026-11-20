@@ -40,6 +40,33 @@ install (GOG 1.2 with OPU 1.4.1). A mission's setup (`InitProc`) runs in op2-rs'
 [op2-missionhost](https://gitlab.com/bufke/op2-rs/-/tree/main/tools/crates/op2-missionhost), the core that makes this
 possible, called from op2dll's library ([OP2MissionReader](https://github.com/leviathan400/OP2MissionReader)).
 
+## Examples
+
+**A mission's start**, drawn from the DLL alone: `OP2Imager --size 768 ml4_21.dll` ("4 Player, LastOne, 'La
+Corrida' map"). Every player slot is filled, so all four starting bases are on it, and the computer player's base in
+the middle.
+
+![La Corrida at the start](docs/images/ml4_21-start.jpg)
+
+**During a game**, from OP2TestHarness's states, drawn as the game drew them (8 px a tile, cut and scaled down for
+this page). The missions ran on their own, the human players idle, so what changed is the computer player's doing
+and the volcanoes'. Start on the left, later on the right.
+
+La Corrida (`ml4_21.dll`), the computer player's base in the middle, at the start and at tick 60000: walled in, with
+guard posts and many more units.
+
+![La Corrida: the computer's base at the start and at tick 60000](docs/images/ml4_21-ai-base.jpg)
+
+"Colony Builder II - Plymouth, Starship" (`CPS2.dll`), the computer player's base at the start and at tick 33292,
+when the mission ended: new structures, walled guard posts and a tube network.
+
+![Colony Builder II: the computer's base at the start and at tick 33292](docs/images/cps2-ai-base.jpg)
+
+"Colony Builder - Eden, Starship" (`CES1.dll`), the whole map at the start and at tick 50000: lava from three
+volcanoes has flowed across it.
+
+![Colony Builder, Eden Starship: the whole map at the start and at tick 50000](docs/images/ces1-whole-map.jpg)
+
 ## Using it
 
 ```

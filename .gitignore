@@ -3,3 +3,4 @@ target
 *.jpg
 *.bmp
 *.gif
+!docs/images/*.jpg
