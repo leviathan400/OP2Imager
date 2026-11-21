@@ -132,6 +132,10 @@ colours weighted up so team colours, lights and lava keep their own (src/gif.rs)
 e05's 41 frames at 8 px a tile land 3.8 levels off on average, 192 of 21.3 million pixels more than 24. Each frame
 after the first stores only the pixels that changed, so 41 frames of 512x1038 make a 418 KB GIF.
 
+**[docs/PIPELINE.md](docs/PIPELINE.md)** walks through the whole chain with a worked example: a mission played in
+OP2TestHarness with a script, its state files drawn by OP2Imager with no game running (byte-identical to the game's
+own pictures), the frames joined by OP2Timelapse, and two missions compared tick for tick.
+
 ## Building
 
 Ready-made builds for Windows x64 and Linux x64 come from CI: each run's Artifacts on the Actions tab, and a tagged

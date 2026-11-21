@@ -4,3 +4,4 @@ target
 *.bmp
 *.gif
 !docs/images/*.jpg
+!docs/images/*.gif
